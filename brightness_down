@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# Get the current brightness level
+brightness=$(xrandr --verbose | grep -i brightness | awk '{ print $2 }')
+
+# Calculate the new brightness level
+new_brightness=$(echo "$brightness - 0.1" | bc)
+
+# Set the new brightness level
+xrandr --output eDP --brightness $new_brightness
+

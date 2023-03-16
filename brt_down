@@ -1,0 +1,17 @@
+#!/bin/bash
+FILE=/sys/class/backlight/amdgpu_bl0/
+
+current=$(cat ${FILE}/brightness)
+max=$(cat ${FILE}/max_brightness)
+
+current=$((100 * $current / $max))	
+echo $current
+
+#current=$(expr $current)
+#zenity --scale --text="brightness" --value=$current
+
+current=$((current - 10))
+new_value=$(($current * $max / 100))
+
+echo $new_value
+echo $new_value | sudo tee ${FILE}brightness > /dev/null
